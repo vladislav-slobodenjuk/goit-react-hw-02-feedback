@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import Statistics from 'componenets/Statistics/Statistics';
+import Section from 'componenets/Section/Section';
 
 class Counter extends Component {
   state = {
@@ -7,9 +9,9 @@ class Counter extends Component {
     bad: 0,
   };
 
-  handleIncrease = statName => {
+  handleIncrease = keyName => {
     this.setState(prevState => ({
-      [statName]: prevState[statName] + 1,
+      [keyName]: prevState[keyName] + 1,
     }));
   };
 
@@ -53,8 +55,17 @@ class Counter extends Component {
           </button>
         </div>
 
-        <h2>Statistics</h2>
-        <ul className="">
+        <Section title="Statistics">
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            total={this.countTotal()}
+            positive={this.countPositive()}
+          />
+        </Section>
+
+        {/* <ul className="">
           <li className="item good" key="Good">
             Good: {this.state.good}
           </li>
@@ -70,7 +81,7 @@ class Counter extends Component {
           <li className="item positive" key="Positive">
             Positive feedback: {this.countPositive()}%
           </li>
-        </ul>
+        </ul> */}
       </>
     );
   }
