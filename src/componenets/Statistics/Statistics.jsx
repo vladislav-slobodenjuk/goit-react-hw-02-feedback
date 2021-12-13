@@ -1,10 +1,10 @@
 export default function Statistics(props) {
   const { total, positive } = props;
-  const propsArr = Object.entries(props).slice(0, 3);
+  const propsArray = Object.entries(props).slice(0, 3);
 
   return (
     <ul className="statistics">
-      {propsArr.map(keyName => {
+      {propsArray.map(keyName => {
         return (
           <li className="item" key={keyName}>
             {keyName[0]}: {keyName[1]}
