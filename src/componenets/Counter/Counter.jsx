@@ -29,7 +29,7 @@ class Counter extends Component {
 
   render() {
     const optionsArray = Object.keys(this.state);
-    const total = this.countTotal();
+    const total = this.countTotal() > 0;
 
     return (
       <>
