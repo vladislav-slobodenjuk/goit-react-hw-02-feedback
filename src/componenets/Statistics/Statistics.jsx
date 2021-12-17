@@ -1,13 +1,14 @@
+import PropTypes from 'prop-types';
+
 export default function Statistics(props) {
-  const { total, positive } = props;
-  const propsArray = Object.entries(props).slice(0, 3);
+  const { total, positive, statistics } = props;
 
   return (
     <ul className="statistics">
-      {propsArray.map(keyName => {
+      {statistics.map(([key, value]) => {
         return (
-          <li className="item" key={keyName}>
-            {keyName[0]}: {keyName[1]}
+          <li className="item" key={key}>
+            {key}: {value}
           </li>
         );
       })}
@@ -20,3 +21,19 @@ export default function Statistics(props) {
     </ul>
   );
 }
+
+Statistics.propTypes = {
+  total: PropTypes.number.isRequired,
+  positive: PropTypes.number.isRequired,
+  statistics: PropTypes.arrayOf(PropTypes.array).isRequired,
+};
+
+// Statistics.propTypes = {
+//   props: PropTypes.objectOf(
+//     PropTypes.exact({
+//       total: PropTypes.number.isRequired,
+//       positive: PropTypes.number.isRequired,
+//       statistics: PropTypes.arrayOf(PropTypes.array).isRequired,
+//     }),
+//   ),
+// };

@@ -4,7 +4,9 @@ import Section from 'componenets/Section/Section';
 import FeedbackOptions from 'componenets/FeedbackOptions/FeedbackOptions';
 import Notification from 'componenets/Notification/Notification';
 
-class Counter extends Component {
+import s from './App.module.scss';
+
+class App extends Component {
   state = {
     good: 0,
     neutral: 0,
@@ -18,21 +20,23 @@ class Counter extends Component {
   };
 
   countTotal = () => {
-    const { good, neutral, bad } = this.state;
-    return good + neutral + bad;
+    return Object.values(this.state).reduce((acc, value) => acc + value, 0);
   };
 
   countPositive = () => {
-    const { good, neutral, bad } = this.state;
-    return Math.round((good * 100) / (good + neutral + bad));
+    const { good } = this.state;
+    const total = this.countTotal();
+    return Math.round((good * 100) / total);
   };
 
   render() {
     const optionsArray = Object.keys(this.state);
-    const total = this.countTotal() > 0;
+    const total = this.countTotal();
+    const percent = this.countPositive();
+    const statistics = Object.entries(this.state);
 
     return (
-      <>
+      <div className={s.app}>
         <Section title="Please leave feedback">
           <FeedbackOptions
             options={optionsArray}
@@ -41,20 +45,18 @@ class Counter extends Component {
         </Section>
 
         <Section title="Statistics">
-          {total && (
+          {total > 0 && (
             <Statistics
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.bad}
-              total={this.countTotal()}
-              positive={this.countPositive()}
+              statistics={statistics}
+              total={total}
+              positive={percent}
             />
           )}
           {!total && <Notification message="There is no feedback" />}
         </Section>
-      </>
+      </div>
     );
   }
 }
 
-export default Counter;
+export default App;

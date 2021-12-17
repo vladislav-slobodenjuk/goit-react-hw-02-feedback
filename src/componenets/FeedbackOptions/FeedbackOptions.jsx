@@ -1,4 +1,8 @@
-export default function FeedbackOptions({ options, onLeaveFeedback }) {
+import PropTypes from 'prop-types';
+
+export default function FeedbackOptions(props) {
+  const { options, onLeaveFeedback } = props;
+
   return (
     <div className="Counter__controls">
       <ul className="buttonList">
@@ -19,3 +23,17 @@ export default function FeedbackOptions({ options, onLeaveFeedback }) {
     </div>
   );
 }
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.array.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
+};
+
+// FeedbackOptions.propTypes = {
+//   props: PropTypes.objectOf(
+//     PropTypes.exact({
+//       options: PropTypes.string,
+//       onLeaveFeedback: PropTypes.string,
+//     }),
+//   ),
+// };
